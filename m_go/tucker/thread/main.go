@@ -9,7 +9,7 @@ func main() {
 	go fun1()
 	for i := 0; i < 20; i++ {
 		time.Sleep(100 * time.Millisecond)
-		fmt.Println("main:", i)
+		fmt.Println("fun1:", i)
 	}
 	fmt.Scanln()
 }
