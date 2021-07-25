@@ -3,37 +3,52 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"sync"
 	"time"
 )
 
 type Account struct {
 	balance int
+	mutex   *sync.Mutex
 }
 
 func (a *Account) Widthdraw(val int) {
+	a.mutex.Lock()
 	a.balance -= val
+	a.mutex.Unlock()
 }
 
 func (a *Account) Deposit(val int) {
+	a.mutex.Lock()
 	a.balance += val
+	a.mutex.Unlock()
 }
 
 func (a *Account) Balance() int {
-	return a.balance
+	a.mutex.Lock()
+	balance := a.balance
+	a.mutex.Unlock()
+	return balance
+
 }
 
 var accounts []*Account
+var globalLock *sync.Mutex
 
 func Transfer(sender, receiver int, money int) {
+	globalLock.Lock()
 	accounts[sender].Widthdraw(money)
 	accounts[receiver].Deposit(money)
+	globalLock.Unlock()
 }
 
 func GetTotalBalance() int {
+	globalLock.Lock()
 	total := 0
 	for i := 0; i < len(accounts); i++ {
 		total += accounts[i].Balance()
 	}
+	globalLock.Unlock()
 	return total
 }
 
@@ -71,8 +86,9 @@ func PrintTotalBalance() {
 
 func main() {
 	for i := 0; i < 20; i++ {
-		accounts = append(accounts, &Account{balance: 1000})
+		accounts = append(accounts, &Account{balance: 1000, mutex: &sync.Mutex{}})
 	}
+	globalLock = &sync.Mutex{}
 
 	PrintTotalBalance()
 
@@ -80,7 +96,11 @@ func main() {
 		go GoTransfer()
 	}
 
-	for {
+	// for i := 0; i < 1; i++ {
+	// 	go GoTransfer()
+	// } // 가격이 유지
+
+	for { //thread
 		PrintTotalBalance()
 		time.Sleep(100 * time.Millisecond)
 	}
