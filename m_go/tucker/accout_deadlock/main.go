@@ -28,8 +28,17 @@ func (a *Account) Balance() int {
 var accounts []*Account
 
 func Transfer(sender, receiver int, money int) {
+	accounts[sender].mutex.Lock()
+	fmt.Println("Lock", sender)
+	time.Sleep(1000 * time.Millisecond)
+	accounts[receiver].mutex.Lock()
+	fmt.Println("Lock", sender)
+
 	accounts[sender].Widthdraw(money)
 	accounts[receiver].Deposit(money)
+
+	accounts[sender].mutex.Unlock()
+	accounts[receiver].mutex.Unlock()
 
 	fmt.Println("Transfer", sender, receiver, money)
 }
