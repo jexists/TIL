@@ -33,6 +33,11 @@ func Transfer(sender, receiver int, money int) {
 	time.Sleep(1000 * time.Millisecond)
 	accounts[receiver].mutex.Lock()
 	fmt.Println("Lock", sender)
+	//PROGRAM 동작 막힘 (Deadlock) => 간헐적으로 에러 생김
+	// 작게 Lock 작게 잡기 vs 크게 Lock 잡기
+	//컨베이어 벨트 방식
+	// 생산자 소비자 패턴 (producer consumer pattern) => channel 제공 (queue)
+	//channel => thread safe / fixed size
 
 	accounts[sender].Widthdraw(money)
 	accounts[receiver].Deposit(money)
