@@ -4,6 +4,27 @@ console.log("22장 this");
 
 console.log("전역 this", this);
 
+//
+var Person = function (nam) {
+  this.name = name;
+  this.say = function () {
+    console.log(this); // Person {name: "haha", say: f}
+ 
+    setTimeout(() => {
+      console.log(this); // Person {name: "haha"}
+      console.log(this.name + '입니다.'); 
+    }, 100)
+  };
+};
+var me = new Person('haha'); //haha입니다.
+console.log('---------');
+
+var btn = document.querySelector('#btn');
+btn.addEventListener('click', function() {
+	console.log(this); //#btn
+});
+
+
 // this 값 => 함수 호출하는 방법에 의해 결정
 function square(num) {
   console.log("일반 함수 this", this);
@@ -54,7 +75,7 @@ function Person(name) {
   //3. 생성자 함수 호출(new 연산자): 생성자 함수가 생성한 인스턴스
 };
 
-const me = new Person('lee');
+const you = new Person('lee');
 
 ///////////////////////////////////////////////////
 
