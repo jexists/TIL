@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"strconv"
+	"time"
 )
 
 type Car struct {
@@ -9,17 +11,32 @@ type Car struct {
 }
 
 func MakeTire(carChan chan Car, outChan chan Car) {
-	car := <-carChan
-	car.val += "Tire, "
+	for {
+		car := <-carChan
+		car.val += "Tire, "
 
-	outChan <- car
+		outChan <- car
+
+	}
 }
 
 func MakeEngine(carChan chan Car, outChan chan Car) {
-	car := <-carChan
-	car.val += "Engine, "
+	for {
+		car := <-carChan
+		car.val += "Engine, "
 
-	outChan <- car
+		outChan <- car
+	}
+}
+
+func StartWork(chan1 chan Car) {
+	i := 0
+	for {
+		time.Sleep(1 * time.Second)
+		chan1 <- Car{val: "Car" + strconv.Itoa(i)}
+		// strconv.Itoa() -> int to string
+		i++
+	}
 }
 
 func main() {
@@ -27,11 +44,15 @@ func main() {
 	chan2 := make(chan Car)
 	chan3 := make(chan Car)
 
+	go StartWork(chan1)
 	go MakeTire(chan1, chan2)
 	go MakeEngine(chan2, chan3)
 
-	chan1 <- Car{val: "Car1: "}
-	result := <-chan3
-
-	fmt.Println(result.val)
+	i := 0
+	for {
+		// chan1 <- Car{val: "Car1: "}
+		result := <-chan3
+		i++
+		fmt.Println(result.val)
+	}
 }
