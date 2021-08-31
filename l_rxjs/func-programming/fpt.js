@@ -80,3 +80,29 @@ const final = array2.map(double)
   .reduce(sumUp);
 console.log(array2); // [ 0, 1, 2, 3, 4, 5 ]
 console.log(final); // 30
+
+
+// 커링
+
+const add2 = (a, b, c) => a + b + c;
+const curriedAdd = a => b => c => a + b + c;
+add2(1, 2, 3);
+curriedAdd(1)(2)(3);
+console.log(add2(1, 2, 3)); // 6
+console.log(curriedAdd(1)(2)(3)); // 6
+
+// loadash
+import _ from 'loadash';
+// package type = module
+const curriedAdd2 = _.curry(add);
+console.log(curriedAdd2(1)(2)(3)); // 6
+
+const addVAT = (rate, amout) => amout * (1 + rate / 100);
+const addVATCurried = _.curry(addVAT);
+const addNationalVAT = addVATCurried(5);
+const addStateVAT = addVATCurried(10);
+
+console.log(addNationalVAT(1000));
+console.log(addNationalVAT(2000));
+console.log(addStateVAT(1000));
+console.log(addStateVAT(2000));
