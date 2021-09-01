@@ -1,9 +1,0 @@
-{
-  "name":"functional-programming",
-  "version":"1.0.0",
-  "main": "fpt.js",
-  "type": "module",
-  "dependencies": {
-    "loadash": "^1.0.0"
-  }
-}
