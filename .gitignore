@@ -1,7 +1,7 @@
 # .gitignore
 
 **/node_modules/
-l_rxjs/01-start/node_modules
+**/.cache
 **/.DS_store
 **/*.lock
 **/*.config
