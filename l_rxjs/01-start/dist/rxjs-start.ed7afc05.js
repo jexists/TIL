@@ -11099,6 +11099,82 @@ var _zipWith = require("./internal/operators/zipWith");
 var _rxjs = require("rxjs");
 
 console.log(_rxjs.Observable);
+new Promise(function (resolve, reject) {
+  console.log('start promise');
+  resolve('promise 1');
+}).then(console.log); //promise => 바로 실행
+//observable => subscribe 함과 동시에 실행
+// const observable = new Observable(observer => {
+//   console.log('start subscriber...');
+//   observer.next(1);
+//   observer.next(2);
+//   observer.next(3);
+//   // setTimeout(()=>{
+//   //   observer.next(1)
+//   // },1000)
+//   setInterval(() => {
+//     observer.next(i++)
+//   },1000)
+// }).subscribe({
+//   next(value){
+//     console.log(value);
+//   },
+//   complete() {
+//   },
+//   error(error) {
+//   }
+// })
+
+var intervalObsvr = new _rxjs.Observable(function (observer) {
+  console.log('start subscriber...');
+  var i = 0;
+  setInterval(function () {
+    observer.next(i++);
+  }, 1000);
+});
+intervalObsvr.subscribe({
+  next: function next(value) {
+    console.log("1", value);
+  },
+  complete: function complete() {},
+  error: function error(_error) {}
+});
+intervalObsvr.subscribe({
+  next: function next(value) {
+    console.log("2", value);
+  },
+  complete: function complete() {},
+  error: function error(_error2) {}
+});
+
+var setTimeObsvr = _rxjs.Observable.create(function (observer) {
+  console.log('start observer...');
+  setTimeout(function () {
+    observer.next(0);
+    observer.next(1);
+    observer.next(2);
+    observer.error(new Error('got error'));
+    observer.complete();
+  }, 1000);
+});
+
+setTimeObsvr.subscribe({
+  next: function next(value) {
+    console.log(value);
+  },
+  complete: function complete() {
+    console.log('it`s complete');
+    console.log(value);
+  },
+  error: function error(_error3) {}
+});
+setTimeObsvr.subscribe(function (value) {
+  console.log(value);
+}, function (error) {
+  console.log(error);
+}, function () {
+  console.log('it`s done');
+});
 },{"rxjs":"node_modules/rxjs/dist/esm5/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -11127,7 +11203,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52013" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49671" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
