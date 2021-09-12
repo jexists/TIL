@@ -12077,8 +12077,10 @@ var myMap = function myMap(mapFn) {
   };
 };
 
-var myObservable = (0, _rxjs.from)([1, 2, 3, 4]); // const newObservable = myMap(v => v + 1)(myObservable)
-// newObservable.subscribe(console.log)
+var myObservable = (0, _rxjs.from)([1, 2, 3, 4]);
+var newObservable = myMap(function (v) {
+  return v + 1;
+})(myObservable); // newObservable.subscribe(console.log)
 // chaining
 // myMap(v => v + 1)(newObservable).subscribe(console.log)
 // myMap(v => v + 1)(
@@ -12093,19 +12095,50 @@ var myObservable = (0, _rxjs.from)([1, 2, 3, 4]); // const newObservable = myMap
 //     myMap(v => v + 1),
 //     myMap(v => v + 1)
 //   ).subscribe(console.log)
+// from([1, 2, 3, 4])
+//   .pipe(
+//     map(v => v + 1),
+//     map(v => v + 1),
+//     map(v => v + 1),
+//   ).subscribe(console.log)
+// from([1, 2, 3, 4])
+//   .pipe(
+//     map(v => v + 1),
+//     filter(v => v % 2 === 0),
+//     map(v => v + 1),
+//   ).subscribe(console.log)
+// from([1, 2, 3, 4])
+//   .pipe(
+//     map(v => v + 1),
+//     tap(v => console.log('Tap', v)),
+//     filter(v => v % 2 === 0),
+//     tap(v => console.log('filter', v)),
+//     map(v => v + 1),
+//   ).subscribe(console.log)
+// from([1, 2, 3, 4])
+//   .pipe(
+//     map(v => v + 1),
+//     tap(v => console.log("TAP", v)),
+//     filter(v => v % 2 === 0),
+//     tap(v => console.log("filter", v)),
+//     scan((x, y) => x + y, 0),
+//   ).subscribe(console.log)
+// from([1, 2, 3, 4])
+//   .pipe(
+//     scan((x, y) => x + y, 0),
+//   ).subscribe(console.log)
 
-(0, _rxjs.from)([1, 2, 3, 4]).pipe((0, _operators.map)(function (v) {
-  return v + 1;
-}), (0, _operators.tap)(function (v) {
-  return console.log("TAP", v);
-}), (0, _operators.filter)(function (v) {
-  return v % 2 === 0;
-}), (0, _operators.tap)(function (v) {
-  return console.log("filter", v);
-}), // scan((x, y) => x + y, 0),
-(0, _operators.reduce)(function (x, y) {
+(0, _rxjs.from)([1, 2, 3, 4]).pipe((0, _operators.reduce)(function (x, y) {
   return x + y;
-}, 0)).subscribe(console.log);
+}, 0)).subscribe(console.log); // from([1, 2, 3, 4])
+//   .pipe(
+//     map(v => v + 1),
+//     tap(v => console.log("TAP", v)),
+//     filter(v => v % 2 === 0),
+//     tap(v => console.log("filter", v)),
+//     // scan((x, y) => x + y, 0),
+//     reduce((x, y) => x + y, 0)
+//   ).subscribe(console.log)
 },{"rxjs":"node_modules/rxjs/dist/esm5/index.js","rxjs/operators":"node_modules/rxjs/dist/esm5/operators/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
