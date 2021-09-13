@@ -1,5 +1,5 @@
 import { from, of } from 'rxjs'
-import { tap, filter, skip, skipWhile, take, takeWhile, takeLast, distinct } from 'rxjs/operators'
+import { tap, filter, skip, skipWhile, take, takeWhile, takeLast, distinct, reduce, first, elementAt, find } from 'rxjs/operators'
 
 const products = [
   { id: "1", name: "note", price: 2000, reviews: 10 },
@@ -38,10 +38,47 @@ const products = [
 //   distinct()
 // ).subscribe(console.log)
 
-from(products).pipe(
-  distinct(v => v.id)
-).subscribe(console.log)
+// from(products).pipe(
+//   distinct(v => v.id)
+// ).subscribe(console.log)
 
 // from([1, 2, 3, 4, 4, 5]).pipe(
 //   distinct()
 // ).subscribe(console.log)
+
+
+// from (products)
+//   .pipe(
+//     reduce((a, c) => a + c.price, 0)
+//   ).subscribe(console.log)
+
+// from (products)
+//   .pipe(
+//     first()
+//   ).subscribe(console.log)
+
+
+// from (products)
+// .pipe(
+//   first(v => v.price > 3000)
+// ).subscribe(console.log)
+
+// from(products)
+//   .pipe(
+//     elementAt(2)
+//   ).subscribe(console.log)
+
+from(products)
+  .pipe(
+    find(v => v.price > 3000)
+  ).subscribe(console.log)
+
+from(products)
+    .pipe(
+      single(v => v.reviews > 1)
+    ).subscribe(console.log)
+
+from(products)
+    .pipe(
+      count()
+    ).subscribe(console.log)

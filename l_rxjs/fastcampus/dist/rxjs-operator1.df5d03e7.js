@@ -12097,12 +12097,36 @@ var products = [{
 // from(products).pipe(
 //   distinct()
 // ).subscribe(console.log)
-
-(0, _rxjs.from)(products).pipe((0, _operators.distinct)(function (v) {
-  return v.id;
-})).subscribe(console.log); // from([1, 2, 3, 4, 4, 5]).pipe(
+// from(products).pipe(
+//   distinct(v => v.id)
+// ).subscribe(console.log)
+// from([1, 2, 3, 4, 4, 5]).pipe(
 //   distinct()
 // ).subscribe(console.log)
+// from (products)
+//   .pipe(
+//     reduce((a, c) => a + c.price, 0)
+//   ).subscribe(console.log)
+// from (products)
+//   .pipe(
+//     first()
+//   ).subscribe(console.log)
+// from (products)
+// .pipe(
+//   first(v => v.price > 3000)
+// ).subscribe(console.log)
+// from(products)
+//   .pipe(
+//     elementAt(2)
+//   ).subscribe(console.log)
+
+(0, _rxjs.from)(products).pipe((0, _operators.find)(function (v) {
+  return v.price > 3000;
+})).subscribe(console.log);
+(0, _rxjs.from)(products).pipe(single(function (v) {
+  return v.reviews > 1;
+})).subscribe(console.log);
+(0, _rxjs.from)(products).pipe(count()).subscribe(console.log);
 },{"rxjs":"node_modules/rxjs/dist/esm5/index.js","rxjs/operators":"node_modules/rxjs/dist/esm5/operators/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -12131,7 +12155,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50551" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63440" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
