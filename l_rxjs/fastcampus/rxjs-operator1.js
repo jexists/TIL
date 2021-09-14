@@ -1,4 +1,4 @@
-import { from, of } from 'rxjs'
+import { from, interval, of } from 'rxjs'
 import { tap, filter, skip, skipWhile, take, takeWhile, takeLast, distinct, reduce, first, elementAt, find } from 'rxjs/operators'
 
 const products = [
@@ -73,12 +73,24 @@ from(products)
     find(v => v.price > 3000)
   ).subscribe(console.log)
 
-from(products)
-    .pipe(
-      single(v => v.reviews > 1)
-    ).subscribe(console.log)
+// from(products)
+//     .pipe(
+//       single(v => v.reviews > 1)
+//     ).subscribe(console.log)
 
-from(products)
+// from(products)
+//     .pipe(
+//       count()
+//     ).subscribe(console.log)
+
+// from(products)
+//     .pipe(
+//       count(v => v.reviews == -1)
+//     ).subscribe(console.log)
+
+interval(1000)
     .pipe(
+      tap(console.log),
+      take(3),
       count()
     ).subscribe(console.log)
