@@ -9,28 +9,34 @@ const products = [
 ];
 
 from(products).pipe(
+  map(v => `${v.price}원`)
+).subscribe(console.log);
+
+console.log('-------');
+
+from(products).pipe(
   pluck("price"),
   map(v => `${v}원`)
 ).subscribe(console.log);
 
-fromEvent(document.getElementById('click-me'), 'click')
-  .pipe(
-    pluck("target", "innerText"),
-    map(v => {
-      // return v
-      // return ajax.getJSON("/data/products.json")
-      return ajax.getJSON("/data/products.json").subscribe()
-    })
-  ).subscribe(console.log)
+// fromEvent(document.getElementById('click-me'), 'click')
+//   .pipe(
+//     pluck("target", "innerText"),
+//     map(v => {
+//       // return v
+//       // return ajax.getJSON("/data/products.json")
+//       return ajax.getJSON("/data/products.json").subscribe()
+//     })
+//   ).subscribe(console.log)
 
-fromEvent(document.getElementById('click-me'), 'click')
-  .pipe(
-    pluck("target", "innerText"),
-    // flatMap(v => {
-    mergeMap(v => {
-      return ajax.getJSON("/data/products.json")
-    })
-  ).subscribe(console.log)
+// fromEvent(document.getElementById('click-me'), 'click')
+//   .pipe(
+//     pluck("target", "innerText"),
+//     // flatMap(v => {
+//     mergeMap(v => {
+//       return ajax.getJSON("/data/products.json")
+//     })
+//   ).subscribe(console.log)
 
 // mergeMap == flatMap
 // [[1, 2, 3], [4, 5]] => [1, 2, 3, 4, 5]
@@ -50,8 +56,8 @@ fromEvent(document.getElementById('click-me'), 'click')
 //       switchMap(v=> interval(1000))
 //     ).subscribe(console.log)
 
-  fromEvent(document.getElementById('click-me'), 'click')
-    .pipe(
-      // 이전 observer이 complete되기전까지 새로운것이 안만들어진다.
-      concatMap(v=> interval(1000))
-    ).subscribe(console.log)
+  // fromEvent(document.getElementById('click-me'), 'click')
+  //   .pipe(
+  //     // 이전 observer이 complete되기전까지 새로운것이 안만들어진다.
+  //     concatMap(v=> interval(1000))
+  //   ).subscribe(console.log)
