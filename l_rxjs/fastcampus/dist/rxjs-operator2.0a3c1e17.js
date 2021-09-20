@@ -12582,14 +12582,14 @@ var products = [{
   name: "shoes",
   price: 4000,
   reviews: 0
-}];
-(0, _rxjs.from)(products).pipe((0, _operators.map)(function (v) {
-  return "".concat(v.price, "\uC6D0");
-})).subscribe(console.log);
-console.log('-------');
-(0, _rxjs.from)(products).pipe((0, _operators.pluck)("price"), (0, _operators.map)(function (v) {
-  return "".concat(v, "\uC6D0");
-})).subscribe(console.log); // fromEvent(document.getElementById('click-me'), 'click')
+}]; // from(products).pipe(
+//   map(v => `${v.price}원`)
+// ).subscribe(console.log);
+// from(products).pipe(
+//   pluck("price"),
+//   map(v => `${v}원`)
+// ).subscribe(console.log);
+// fromEvent(document.getElementById('click-me'), 'click')
 //   .pipe(
 //     pluck("target", "innerText"),
 //     map(v => {
@@ -12601,30 +12601,49 @@ console.log('-------');
 // fromEvent(document.getElementById('click-me'), 'click')
 //   .pipe(
 //     pluck("target", "innerText"),
+//     flatMap(v => {
+//       return ajax.getJSON("/data/product.json")
+//     })
+//   ).subscribe(console.log)
+// fromEvent(document.getElementById('click-me'), 'click')
+//   .pipe(
+//     pluck("target", "innerText"),
 //     // flatMap(v => {
 //     mergeMap(v => {
-//       return ajax.getJSON("/data/products.json")
+//       return ajax.getJSON("/data/product.json")
 //     })
 //   ).subscribe(console.log)
 // mergeMap == flatMap
 // [[1, 2, 3], [4, 5]] => [1, 2, 3, 4, 5]
-// [1, 2, 3].flatMap(v => ["!", v]) //["!",1,"!",2,"!",3]
+
+var flat = [1, 2, 3].flatMap(function (v) {
+  return ["!", v];
+}); //["!",1,"!",2,"!",3]
+// console.log(flat);
 // fromEvent(document.getElementById('click-me'), 'click')
 //   .pipe(
 //     pluck("target", "innerText"),
 //     switchMap(v => {
-//       return ajax.getJSON("/data/products.json")
+//       return ajax.getJSON("/data/product.json")
 //     })
 //   ).subscribe(console.log)
-//   fromEvent(document.getElementById('click-me'), 'click')
-//     .pipe(
-//       switchMap(v=> interval(1000))
-//     ).subscribe(console.log)
+// fromEvent(document.getElementById('click-me'), 'click')
+//   .pipe(
+//     flatMap(v=> interval(1000))
+//   ).subscribe(console.log)
+// fromEvent(document.getElementById('click-me'), 'click')
+//   .pipe(
+//     switchMap(v=> interval(1000))
+//   ).subscribe(console.log)
 // fromEvent(document.getElementById('click-me'), 'click')
 //   .pipe(
 //     // 이전 observer이 complete되기전까지 새로운것이 안만들어진다.
 //     concatMap(v=> interval(1000))
 //   ).subscribe(console.log)
+
+(0, _rxjs.fromEvent)(document.getElementById('click-me'), 'click').pipe((0, _operators.pluck)("targe", "innerText"), (0, _operators.concatMap)(function (v) {
+  return _ajax.ajax.getJSON("data/product.json");
+})).subscribe(console.log);
 },{"rxjs":"node_modules/rxjs/dist/esm5/index.js","rxjs/ajax":"node_modules/rxjs/dist/esm5/ajax/index.js","rxjs/operators":"node_modules/rxjs/dist/esm5/operators/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -12653,7 +12672,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52631" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51963" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
