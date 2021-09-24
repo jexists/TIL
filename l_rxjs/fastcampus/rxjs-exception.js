@@ -33,18 +33,39 @@ import { map, catchError } from 'rxjs/operators';
 //     _ => console.log('complete') //호출 안됨
 //   )
 
+// interval(100)
+//   .pipe(map(x => {
+//     if (x === 1) {
+//       throw new Error('ERROR');
+//     }
+//     return x;
+//   }),
+//     catchError(e => of(1))
+//     ).subscribe(
+//       console.log,
+//       e => {
+//         console.error('error', e);
+//       },
+//       _ => console.log('complete') //호출 안됨
+//     )
+
 interval(100)
-  .pipe(map(x => {
-    if (x === 1) {
-      throw new Error('ERROR');
-    }
-    return x;
-  }),
-    catchError(e => of(1))
-    ).subscribe(
-      console.log,
-      e => {
-        console.error('error', e);
-      },
-      _ => console.log('complete') //호출 안됨
-    )
+  .pipe(
+    switchMap(x => {
+      if (x === 1) {
+        return throwError(new Error('ERROR')).pipe(
+          catchError(e => {
+            console.error(e);
+            return of(1)
+          })
+        )
+      }
+      return of(x);
+    })
+  ).subscribe(
+    console.log,
+    e => {
+      console.error('error', e);
+    },
+    _ => console.log('complete') //호출 안됨
+  )
