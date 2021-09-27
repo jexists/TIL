@@ -5,16 +5,52 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>rxjs start</title>
+  <style>.border-primary {
+      border: 1px solid #242485;
+    }
+    .mt-1 {
+      margin-top: 1rem;
+    }
+    .card {
+      margin: 10px;
+      padding: 10px;
+    }</style>
 </head>
-<body>
-
+<body class="container-fluid">
   <button id="click-me">click</button>
+
+  <div class="row mb-1 mt-1">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary" btn-lg="" btn-block="">조회</button>  
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="card border-primary">
+        <div class="card-body">
+          <h4 class="card-title">전체 상품 금액</h4>
+          <p class="card-text" data-value="total_price_widget">조회를 눌러주세요</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card border-primary">
+        <div class="card-body">
+          <h4 class="card-title">전체 상품 갯수</h4>
+          <p class="card-text" data-value="total_count_widget">조회를 눌러주세요</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   
   <!-- <script src="rxjs-start.js"></script> -->
   <!-- <script src="rxjs-create.js"></script> -->
   <!-- <script src="rxjs-operator.js"></script> -->
   <!-- <script src="rxjs-operator1.js"></script> -->
   <!-- <script src="rxjs-operator2.js"></script> -->
-  <script src="/rxjs-exception.4a37f328.js"></script>
+  <!-- <script src="rxjs-exception.js"></script> -->
+  <script src="/rxjs-subject.ac044a5f.js"></script>
 </body>
 </html>
