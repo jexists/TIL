@@ -12590,13 +12590,41 @@ var TotalCountWidget = function TotalCountWidget(productObservable) {
   _classCallCheck(this, TotalCountWidget);
 
   var el = document.querySelector('[data-value="total_count_widget"]');
+  productObservable.pipe((0, _operators.pluck)("length"), // = map(v => v.length)
+  (0, _operators.map)(function (v) {
+    return "".concat(v, "\uAC1C");
+  })).subscribe(function (v) {
+    el.innerHTML = v;
+    console.log(v);
+  });
 };
 
 var TotalPriceWidget = function TotalPriceWidget(productObservable) {
   _classCallCheck(this, TotalPriceWidget);
 
-  var el = document.querySelector('[data-value="total_price_widge"]');
+  var el = document.querySelector('[data-value="total_price_widget"]');
+  productObservable.pipe((0, _operators.map)(function (v) {
+    return v.map(function (p) {
+      return p.price;
+    }).reduce(function (acc, val) {
+      return acc + val;
+    }, 0);
+  }), (0, _operators.map)(function (v) {
+    return "".concat(v, "\uC6D0");
+  })).subscribe(function (v) {
+    return el.innerHTML = v;
+  });
 };
+
+var App = function App() {
+  _classCallCheck(this, App);
+
+  var products$ = (0, _rxjs.of)(products);
+  new TotalCountWidget(products$);
+  new TotalPriceWidget(products$);
+};
+
+new App();
 },{"rxjs":"node_modules/rxjs/dist/esm5/index.js","rxjs/ajax":"node_modules/rxjs/dist/esm5/ajax/index.js","rxjs/operators":"node_modules/rxjs/dist/esm5/operators/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -12625,7 +12653,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54637" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58410" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
