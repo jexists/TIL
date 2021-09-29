@@ -1,4 +1,4 @@
-import { from, fromEvent, interval, of } from 'rxjs'
+import { from, fromEvent, interval, of, Subject } from 'rxjs'
 import { ajax } from 'rxjs/ajax'
 import { map, pluck, reduce, tap } from 'rxjs/operators'
 
@@ -33,9 +33,23 @@ class TotalPriceWidget {
 
 class App {
   constructor() {
-    const products$ = of(products);
+    // const products$ = of(products);
+
+    const productSubject = new Subject();
+    const products$ = productSubject.asObservable();
+    
     new TotalCountWidget(products$);
     new TotalPriceWidget(products$);
+    // productSubject.next(products)
+
+    // fromEvent(document.querySelector('.btn'),click)
+    //   .pipe(
+    //     map(_ => products)
+    //   )
+    //   .subscribe(productSubject);
+    document.querySelector('.btn').addEventListener('click', e => {
+      productSubject.next(products);
+    })
   }
 }
 
