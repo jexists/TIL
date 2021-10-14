@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <title>마커 겹침 처리</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script type="text/javascript"
+    src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=mlvqwpvmii&callback=initMap"></script>
+  <script type="text/javascript" src="./MarkerOverlappingRecognizer.js"></script>
+  <script type="text/javascript" src="./clublist.js"></script>
+  <style type="text/css">
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div id="map" style="width:100%;height:100%;padding:0;margin:0;"></div>
+
+
+
+  <!-- =================================================== -->
+  <script>
+    var map = new naver.maps.Map('map', {
+      center: new naver.maps.LatLng(37.5580759, 126.9399512),
+      zoom: 16,
+      mapTypeId: naver.maps.MapTypeId.NORMAL
+    });
+
+    var recognizer = new MarkerOverlappingRecognizer({
+      highlightRect: false, // 호버했을때 빨간색 안보이게
+      tolerance: 5 // 클수록 범위가 넓어짐 (겹침부분)
+    });
+
+    recognizer.setMap(map);
+
+    // 마커 위로 올리기
+    function highlightMarker(marker) {
+      marker.setZIndex(1000);
+    }
+
+    // 마커 밑으로 내리기
+    function unhighlightMarker(marker) {
+      marker.setZIndex(100);
+    }
+
+
+    // 마커 생성
+    for (let i = 0; i < ClUBLISTS.length; i++) {
+      for (let j = 0; j < ClUBLISTS[i]?.club_recruit_locate?.length; j++) {
+        // console.log(ClUBLISTS[i]);
+        var marker = new naver.maps.Marker({
+          map: map,
+          position: new naver.maps.LatLng(ClUBLISTS[i].club_recruit_locate[j].latlng_y, ClUBLISTS[i].club_recruit_locate[j].latlng_x),
+          title: ClUBLISTS[i].club_recruit_type + ClUBLISTS[i].club_info.club_name,
+          icon: {
+            content:
+              `<div class="marker marker_${ClUBLISTS[i].club_recruit_type}" id=${ClUBLISTS[i].club_recruit_no}>
+                <div class="marker-img">
+                  <img src="https://cdn.rebbit.net${ClUBLISTS[i].club_info.club_emblem_image}" alt="${ClUBLISTS[i].club_info.club_name}" />
+                </div>
+                <span>##${ClUBLISTS[i].club_info.club_name}##</span>
+              </div>`,
+          }
+        });
+
+        // 마커에 마우스 올릴때 
+        marker.addListener('mouseover', function (e) {
+          highlightMarker(e.overlay);
+        });
+
+        // 마커에 마우스 떠날때
+        marker.addListener('mouseout', function (e) {
+          unhighlightMarker(e.overlay);
+        });
+
+        // 마커 클릭
+        marker.addListener('click', function (e) {
+          var m = e.overlay;
+          console.log('click!!', e);
+
+          const click = document.querySelector('.marker.click');
+          click?.classList.remove('click');
+
+          const targetE = e.domEvent.target;
+          if (targetE?.classList.contains('marker')) {
+            targetE?.classList.add('click');
+          } else {
+            targetE?.offsetParent.classList.add('click');
+          }
+        });
+
+        recognizer.add(marker);
+
+        // window.MARKER = marker;
+      }
+    };
+
+    var overlapCoverMarker = null;
+
+
+    // 겹친마커 오버랩되있는거 클릭할경우
+    naver.maps.Event.addListener(recognizer, 'overlap', function (list) {
+      // console.error(list);
+      if (overlapCoverMarker) {
+        unhighlightMarker(overlapCoverMarker);
+      }
+      
+      overlapCoverMarker = list[0].marker;
+      console.log(overlapCoverMarker);
+
+      naver.maps.Event.once(overlapCoverMarker, 'mouseout', function () {
+        highlightMarker(overlapCoverMarker);
+      });
+    });
+
+    // 겹친마커 리스트에서 아이템 클릭했을 때
+    naver.maps.Event.addListener(recognizer, 'clickItem', function (e) {
+      recognizer.hide();
+
+      if (overlapCoverMarker) {
+        unhighlightMarker(overlapCoverMarker);
+
+        overlapCoverMarker = null;
+      }
+    });
+
+
+
+
+
+
+
+
+    // 지도 클릭시
+    naver.maps.Event.addListener(this.map, 'click', (e) => {
+      const click = document.querySelector('.marker.click');
+      click?.classList.remove('click');
+    });
+
+    // 지도 이동시
+    naver.maps.Event.addListener(this.map, 'idle', (e) => {
+      console.log('?c=', this.map.center._lat, this.map.center._lng, this.map.zoom);
+    });
+
+
+  </script>
+</body>
+
+</html>
