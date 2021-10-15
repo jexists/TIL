@@ -1,4 +1,20 @@
 /**
+ * Copyright 2016 NAVER Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
  * 마커 클러스터링을 정의합니다.
  * @param {Object} options 마커 클러스터링 옵션
  */
@@ -14,7 +30,7 @@
 		// 클러스터를 구성할 최소 마커 수입니다.
 		minClusterSize: 2,
 		// 클러스터 마커로 표현할 최대 줌 레벨입니다. 해당 줌 레벨보다 높으면, 클러스터를 구성하고 있는 마커를 노출합니다.
-		maxZoom: 16,
+		maxZoom: 13,
 		// 클러스터를 구성할 그리드 크기입니다. 단위는 픽셀입니다.
 		gridSize: 100,
 		// 클러스터 마커의 아이콘입니다. NAVER Maps JavaScript API v3에서 제공하는 아이콘, 심볼, HTML 마커 유형을 모두 사용할 수 있습니다.
@@ -35,6 +51,9 @@
 	this.setOptions(naver.maps.Util.extend({}, this.DEFAULT_OPTIONS, options), true);
 	this.setMap(options.map || null);
 };
+
+console.log(naver);
+console.log(naver.maps.OverlayView);
 
 naver.maps.Util.ClassExtend(MarkerClustering, naver.maps.OverlayView, {
 	onAdd: function() {

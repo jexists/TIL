@@ -78,7 +78,7 @@
       };
 
     var markerClustering = new MarkerClustering({
-      minClusterSize: 1,
+      minClusterSize: 2,
       maxZoom: 13,
       map: map,
       markers: markers,
@@ -87,8 +87,9 @@
       icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
       indexGenerator: [10, 100, 200, 500, 1000],
       stylingFunction: function (clusterMarker, count) {
-        console.log($(clusterMarker.getElement()).find('div:first-child').text(count));
-        console.log(count);
+        // console.log($(clusterMarker.getElement()).find('div:first-child').text(count));
+        console.log(clusterMarker);
+        // console.log(count);
         // $(clusterMarker.getElement()).find('div:first-child').text('숫자');
         $(clusterMarker.getElement()).find('div:first-child').text(count);
       }
@@ -96,103 +97,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    // var map = new naver.maps.Map("map", {
-    //   zoom: 6,
-    //   center: new naver.maps.LatLng(36.2253017, 127.6460516),
-    //   zoomControl: true,
-    //   zoomControlOptions: {
-    //     position: naver.maps.Position.TOP_LEFT,
-    //     style: naver.maps.ZoomControlStyle.SMALL
-    //   }
-    // });
-
-    // var markers = [];
-
-    // for (let i = 0; i < ClUBLISTS.length; i++) {
-    //   for (let j = 0; j < ClUBLISTS[i]?.club_recruit_locate?.length; j++) {
-    //     // console.log(ClUBLISTS[i]);
-    //     var marker = new naver.maps.Marker({
-    //       map: map,
-    //       position: new naver.maps.LatLng(ClUBLISTS[i].club_recruit_locate[j].latlng_y, ClUBLISTS[i].club_recruit_locate[j].latlng_x),
-    //       title: ClUBLISTS[i].club_recruit_type + ClUBLISTS[i].club_info.club_name,
-    //       icon: {
-    //         content:
-    //           `<div class="marker marker_${ClUBLISTS[i].club_recruit_type}" id=${ClUBLISTS[i].club_recruit_no}>
-    //             <div class="marker-img">
-    //               <img src="https://cdn.rebbit.net${ClUBLISTS[i].club_info.club_emblem_image}" alt="${ClUBLISTS[i].club_info.club_name}" />
-    //             </div>
-    //             <span>${ClUBLISTS[i].club_info.club_name}</span>
-    //           </div>`,
-    //       }
-    //     });
-    //     markers.push(marker);
-    //   }
-    // }
-
-    // var htmlMarker1 = {
-    //   content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../images/cluster-marker-1.png);background-size:contain;"></div>',
-    //   size: N.Size(40, 40),
-    //   anchor: N.Point(20, 20)
-    // },
-    //   htmlMarker2 = {
-    //     content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../images/cluster-marker-2.png);background-size:contain;"></div>',
-    //     size: N.Size(40, 40),
-    //     anchor: N.Point(20, 20)
-    //   },
-    //   htmlMarker3 = {
-    //     content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../images/cluster-marker-3.png);background-size:contain;"></div>',
-    //     size: N.Size(40, 40),
-    //     anchor: N.Point(20, 20)
-    //   },
-    //   htmlMarker4 = {
-    //     content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../images/cluster-marker-4.png);background-size:contain;"></div>',
-    //     size: N.Size(40, 40),
-    //     anchor: N.Point(20, 20)
-    //   },
-    //   htmlMarker5 = {
-    //     content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../images/cluster-marker-5.png);background-size:contain;"></div>',
-    //     size: N.Size(40, 40),
-    //     anchor: N.Point(20, 20)
-    //   };
-
-    // var markerClustering = new MarkerClustering({
-    //   minClusterSize: 2,
-    //   maxZoom: 13,
-    //   map: map,
-    //   markers: markers,
-    //   disableClickZoom: false,
-    //   gridSize: 120,
-    //   icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
-    //   indexGenerator: function (count) {
-    //     var index = 0;
-
-    //     if (count >= 100 && count < 200) {
-    //       index = 1;
-    //     } else if (count >= 200 && count < 500) {
-    //       index = 2;
-    //     } else if (count >= 500 && count < 1000) {
-    //       index = 3;
-    //     } else if (count >= 1000) {
-    //       index = 4;
-    //     }
-
-    //     return index;
-    //   },
-    //   stylingFunction: function (clusterMarker, count) {
-    //     $(clusterMarker.getElement()).find('div:first-child').text(count);
-    //   }
-    // });
   </script>
 </body>
 
