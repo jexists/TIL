@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { accidentDeath } from './accidentdeath';
+import { MarkerClustering } from './MarkerClustering';
 
 declare var naver: any;
 const naverURL = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=mlvqwpvmii&callback=initMap';
 
-
+// [참고 코드]ㄴ
+// https://navermaps.github.io/maps.js.ncp/docs/tutorial-marker-cluster.example.html
+// https://github.com/navermaps/marker-tools.js/tree/master/marker-clustering
+// https://github.com/navermaps/marker-tools.js/blob/master/marker-clustering/src/MarkerClustering.js
 export interface Accidents {
   year: string;
   grd_lo: string;
@@ -40,10 +44,7 @@ export class MapClusterComponent implements OnInit {
 
     this.loadNaverMap().then((result) => {
       console.log('#네이버', result);
-
-      // this.getMapView();
-
-      var map = new naver.maps.Map("naverMap", {
+      this.map = new naver.maps.Map("naverMap", {
         zoom: 8,
         center: new naver.maps.LatLng(37.5580759, 126.9399512),
         zoomControl: true,
@@ -53,21 +54,20 @@ export class MapClusterComponent implements OnInit {
         }
       });
 
-      var markers = [],
-        data = this.accidentDeaths;
+      this.markers = [];
 
-      for (var i = 0, ii = data.length; i < ii; i++) {
-        var 
-          latlng = new naver.maps.LatLng(data[i].grd_la, data[i].grd_lo),
+      for (var i = 0, ii = this.accidentDeaths.length; i < ii; i++) {
+        var
+          latlng = new naver.maps.LatLng(this.accidentDeaths[i].grd_la, this.accidentDeaths[i].grd_lo),
           marker = new naver.maps.Marker({
+            // map: this.map, // cluster하면 주석
             position: latlng,
-            draggable: false
           });
 
-        markers.push(marker);
-          console.log(markers);
-          
+        this.markers.push(marker);
+
       }
+      console.log(this.markers);
 
       var htmlMarker1 = {
         content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(../images/cluster-marker-1.png);background-size:contain;"></div>',
@@ -95,24 +95,24 @@ export class MapClusterComponent implements OnInit {
           // anchor: N.Point(20, 20)
         };
 
-      // var markerClustering = new MarkerClustering({
-      //   minClusterSize: 2,
-      //   maxZoom: 13,
-      //   map: map,
-      //   markers: markers,
-      //   disableClickZoom: false,
-      //   gridSize: 120,
-      //   icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
-      //   indexGenerator: [10, 100, 200, 500, 1000],
-      //   stylingFunction: function (clusterMarker, count) {
-      //     // $(clusterMarker.getElement()).find('div:first-child').text(count);
-      //   }
-      // });
+      var markerClustering = new MarkerClustering({
+        minClusterSize: 2,
+        maxZoom: 13,
+        map: this.map,
+        markers: this.markers,
+        disableClickZoom: false,
+        gridSize: 120,
+        icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
+        indexGenerator: [10, 100, 200, 500, 1000],
+        stylingFunction: function (clusterMarker, count) {
+          console.log();
+          // $(clusterMarker.getElement()).find('div:first-child').text(count);
+        }
+      });
 
     }).catch((err) => {
-      alert('네이버 지도 불러오는데 실패하였습니다. 새로고침 해주세요.');
+      console.error('네이버 지도 불러오는데 실패하였습니다. 새로고침 해주세요.');
     });
-
 
   }
 
