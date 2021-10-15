@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapViewComponent } from './map-view/map-view.component';
+import { MapClusterComponent } from './map-cluster/map-cluster.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
-      MapViewComponent
+      MapViewComponent,
+      MapClusterComponent
    ],
   imports: [
     BrowserModule,
