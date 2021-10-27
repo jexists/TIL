@@ -44,3 +44,40 @@ const AGE = 10;
 
 // 카멜케이스 / 스네이크케이스
 
+
+
+// JS 기본자료형
+// boolean
+// null
+// undefined
+// number
+// string
+// symbol
+// object
+
+// TS 기본자료형
+// boolean
+// number
+// string
+// array
+// tuple
+// enum
+// any: 모든 데이타 타입 (지향)
+// void: 함수 리턴값이 없는 값
+// null and undefined
+// never: 절대 발생할 수 없는 타입
+// object
+
+// ENUM Example
+const ColorJS = {
+  Red: 1,
+  Blue: 2,
+  Green: 3,
+}
+ColorJS.Red;
+
+enum ColorTS {
+  Red, Blue, Green
+}
+ColorTS.Red;
+
