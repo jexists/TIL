@@ -41,14 +41,64 @@ const colors = ['red', 'yellow', 'black'];
 // const red = color[0];
 // const yellow = color[1];
 // const black = color[2];
-yellow; 
+yellow;
 const [red, yellow, black] = colors
 
 const [, yellow] = colors;
 
 const Colors = {
-  blue:'blue',
+  blue: 'blue',
   green: 'green',
   white: 'white'
 }
-const {white, green} = Colors;
+const { white, green } = Colors;
+
+let a = 10;
+let b = '10';
+
+if (a == b) {
+
+}
+
+if (a === b) {
+
+}
+
+// 삼항연산자
+if (a == b) {
+  a = 0;
+} else {
+  a = 1;
+}
+a = (a == b) ? 0 : 1;
+
+// typeof (어떤 유형의 값인가?)
+
+let a = 10;
+let b = a;
+
+b = 20;
+// b의 값을 바꾼다고 해도 a의 값에 영향이 없다.
+// 기본 값은 복사가 된다. (기본형 데이터 타입은 실제값이 들어간다. )
+
+console.log('done');
+
+// 참조 => 객체는 참조된다.
+// 객체형 타입은 객체가 들어가는 것이 아니라 위치값만 저장
+// 언제나 하나만 존재한다.
+let o = {
+  isLoading: false,
+}
+
+let o2 = o;
+
+o2.isLoading = true;
+
+// 객체인 경우에는 함수에서도 참조된다.
+function foo(o) {
+  o.isLoading = true;
+}
+
+foo(o);
+console.log('done2');
+
