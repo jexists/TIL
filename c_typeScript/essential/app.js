@@ -102,3 +102,13 @@ function foo(o) {
 foo(o);
 console.log('done2');
 
+// 조건문
+
+let age = 10;
+if (age == 10) {
+  console.log('10살');
+} else if (age == 20) {
+  console.log('20살');
+} else {
+  console.log('몰라요');
+}

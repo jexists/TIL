@@ -32,11 +32,21 @@ var twoSum = function (nums, target) {
   //   }
   // }
   // ERROR
+
+  let map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    let num1 = nums[i];
+    let num2 = target - num1;
+    if (map.has(num2)) {
+      return [i, map.get(num2)]
+    }
+    map.set(num1, i);
+  }
 };
 
 // twoSum(nums, target);
 // twoSum([3,2,4], 6);
 
 console.log(twoSum(nums, target));
-console.log(twoSum([3,2,4], 6));
-console.log(twoSum([3,3], 6));
+console.log(twoSum([3, 2, 4], 6));
+console.log(twoSum([3, 3], 6));
