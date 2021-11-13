@@ -18,15 +18,19 @@
 
 - angular
 
+### 5. movie App
+
+- react
+
 ---
 
 ## STUDY
 
-### a. SVG
+### a. JavaScript
 
-### b. Vanila JavaScript
+### b. TypeScript
 
-### c. TypeScript
+### c. Rx JS
 
 ### d. Angular
 
@@ -34,19 +38,41 @@
 
 ### f. Vue
 
-### g. SQL
+### g. Node.js
 
-### h. JAVA
+### h. go
 
-### i. Node.js
+### i. c
 
-### j. Git
+### j. python
 
-### k. Algorism
+### k. django
 
+### l. SQL
 
+### m. noSQL
 
+### n. svg
 
+### o. canvas
+
+### p. git
+
+### q. gulp
+
+### r. 
+
+### s.
+
+### t.
+
+### u.
+
+### v.
+
+### w.
+
+### x. algorism
 
 ### y. test
 
