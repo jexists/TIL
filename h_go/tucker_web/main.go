@@ -1,14 +1,36 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 )
+
+type User struct {
+	FirstName string
+	LastName  string
+	Email     string
+	CreateAt  time.Time
+}
 
 type fooHandler struct{}
 
 func (f *fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello Foo")
+	user := new(User)
+	err := json.NewDecoder(r.Body).Decode(user)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprint(w, err)
+		return
+	}
+
+	user.CreateAt = time.Now()
+	//json 형태로 변경
+	data, _ := json.Marshal(user)
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, string(data))
+
 }
 
 func barHandler(w http.ResponseWriter, r *http.Request) {
