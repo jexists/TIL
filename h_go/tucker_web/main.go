@@ -8,10 +8,16 @@ import (
 )
 
 type User struct {
-	FirstName string
-	LastName  string
-	Email     string
-	CreateAt  time.Time
+	// FirstName string
+	// LastName  string
+	// Email     string
+	// CreateAt  time.Time
+
+	//annotaion
+	FirstName string    `json:"first_name"`
+	LastName  string    `json:"last_name"`
+	Email     string    `json:"email"`
+	CreateAt  time.Time `json:"create_at"`
 }
 
 type fooHandler struct{}
@@ -20,6 +26,7 @@ func (f *fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	user := new(User)
 	err := json.NewDecoder(r.Body).Decode(user)
 	if err != nil {
+		w.Header().Add("content-type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprint(w, err)
 		return
