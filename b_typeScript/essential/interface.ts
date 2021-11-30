@@ -77,3 +77,42 @@ export type Geometry = {
   padding: number;
   margin: number;
 }
+
+export interface IStyle extends Color, Display, Geometry {
+  tagName: string;
+}
+
+export type TStyle = Color & Display & Geometry & {
+  tagName: string;
+}
+
+export interface IOnlyNumberValueObject {
+  [key: string]: number;
+}
+export type TOnlyBooleanValueObject = {
+  [prop: string]: boolean;
+  // [prop: string]: any; //모든 객체 (사용X)
+}
+
+// 함수 규격
+export interface IGetApi {
+  (url: string, search?: string): Promise<string>;
+  //(인자): 리턴값
+}
+
+export type TGetApi = {
+  (url: string, search?: string): Promise<string>;
+}
+// export type FooFunction = () => string;
+
+export interface IRect {
+  id: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface IRectConstructor {
+  new(x: number, y: number, width: number, height: number): IRect
+}
