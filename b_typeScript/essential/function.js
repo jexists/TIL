@@ -99,3 +99,56 @@ sum.apply(null, [10, 20, 30]);
 
 const arr = [10, 20, 30, 40];
 sum.apply(null, arr);
+
+// 화살표 함수
+// 이름이 기본적으로 없고 익명함수가 기본값 -> 반드시 변수에 넣어줘야한다.
+// 한줄 함수
+const sumV2 = (a, b, ...args) => {
+  let s = 0;
+  for (let i = 0; i < args.length; i++) {
+    s = s + args[i];
+  }
+  return s;
+}
+
+const ten = () => {
+  return 100;
+}
+// 생략가능 (코드블록이 한줄인 경우 == 리턴값이면 브레이스 & 리턴 생략 가능)
+const ten = () => 100;
+
+const ten = (x) => 100 + x;
+// 생략가능 (인자가 하나일 경우 괄호 생략 가능)
+const ten = x => 100 + x;
+ten(10); // 110
+
+// 생략 불가능
+const ten = (x, y) => {
+  console.log(x);
+  return 100 + y;
+}
+
+// 생성기 함수 (generator function)
+// -> 최소에 호출하면 함수가 실행되지않고 실행 준비상태로 만들고 객체 하나 반환 (함수를 실행할 도구를 담은 객체 반환)
+// 반환한 객체로 실행 했다가 멈췄다가 함
+// 실행을 일시 중시 시키고 바깥쪽으로 나갔다가 다시 next 함수로 안쪽으로 들어와서 실행 재개 (왔다갔다)
+function* gen() {
+  // yield == return
+  yield 10;
+  yield 20;
+  return 30;
+}
+
+const g = gen(); // undefined
+// 호출
+g.next(); // 10
+g.next(); // 20
+g.next(); // 30
+
+
+// 비동기 함수
+async function myTask() {
+
+}
+
+// promise / callback 함수 
