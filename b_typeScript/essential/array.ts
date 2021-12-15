@@ -15,7 +15,7 @@ const books: string[] = [
 // 식을 이용한 배열순회 (forEach)
 // forEach(원소데이터, index, 배열원본 전체)
 // for문보다 성능이 떨어진다
-books.forEach((book: string, idx: number, books:string[]) => {
+books.forEach((book: string, idx: number, books: string[]) => {
   console.log(book, idx);
 })
 
@@ -43,7 +43,7 @@ console.log(ShakespeareOneBooks);
 
 
 // 표현이 더 쉽게..,
-const bookTitleToBookObject = (book:string) => ({title: book});
+const bookTitleToBookObject = (book: string) => ({ title: book });
 // 커링
 const makeAuthor = (name: string) => (book: Book) => ({
   ...book,
@@ -55,3 +55,56 @@ const shakespearTwoBooks: Book[] = books
   .map(makeAuthor("William Shakespeare"));
 
 console.log(shakespearTwoBooks);
+
+// filter 입력한 함수가 true인 경우만 모아서 리턴
+const henry: Book[] = shakespearTwoBooks.filter((book: Book) =>
+  book.title.includes("헨리")
+)
+
+console.log(henry);
+
+const someNumbers: number[] = [10, 5, 3, 14, 56];
+
+// reduce 누적함수
+const sumNumber = someNumbers.reduce((a: number, b: number) => a + b, 0)
+
+console.log(sumNumber);
+
+type SomeObject = {
+  [key: string]: string | number;
+}
+
+const someObjects: SomeObject[] = [
+  { border: "none" },
+  { fontSize: 24 },
+  { className: "box sm-box" }
+];
+
+const someObject: SomeObject = someObjects.reduce(
+  (a: SomeObject, b: SomeObject) => ({ ...a, ...b }), {}
+)
+
+console.log(someObject);
+
+
+// 유사배열
+
+function sumNumbers(): number {
+  return Array.from(arguments).reduce((a: number, b: number) => a + b, 0)
+}
+
+//arguments reduce 함수x -> 유사배열이기 때문
+// function sumNumbers1(): number {
+//   return arguments.reduce((a: number, b: number) => a + b, 0)
+// }
+
+// console.log(sumNumbers(10, 20, 30, 40, 50));
+
+// 유사배열 => 배열 로 변경
+// Array.from(유사배열)
+
+// 가변인자 처리하는 함수
+function sumNumbersForTypescript(...args: number[]): number {
+  return args.reduce((a: number, b: number) => a + b, 0)
+}
+console.log(sumNumbersForTypescript(10, 20, 30, 40, 50));
