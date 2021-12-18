@@ -8,12 +8,16 @@ interface Container {
 
 abstract class Shape {
   public static MIN_BORDER_WIDTH = 0;
+  // public instance 객체에 그냥 사용
   public static MAX_BORDER_WIDTH = 30;
 
   public readonly name: string = "Shape";
-  // 읽기 전용 만들기
+  // readonly 읽기 전용 만들기
   protected _borderWidth: number;
-  private action: string;
+  // protected 외부에는 공개 안되지만 내부 자식클래스 확장 클래스에서 접근 할수 있는 요소 (외부 접근 불가) 상속받은 자식 클래스에서도 접근 가능
+  private action!: string;
+  // private 그 클래스 자체 안에서만 사용/동작가능 (상속받거나 부모 클래스에서 접근 불가) (외부 접근 불가)
+  //! 값을 세팅하지 않아도 된다
 
   constructor(borderWidth: number = 0) {
     this._borderWidth = borderWidth;
@@ -71,3 +75,38 @@ class Rect extends Shape {
   }
   area: () => number;
 }
+
+const circle = new Circle(50);
+const rect = new Rect(150, 200);
+
+console.log(rect.borderWidth);
+console.log(rect.name);
+console.log(circle.name);
+
+
+try {
+  rect.borderWidth = 10;
+} catch (e) {
+  console.error(e);
+}
+
+// 클래스 설계도를 interface로 사용하겠다
+// interface public만 취급
+class MyContainer implements Container {
+  tagName: string;
+  className: string;
+  private name: string;
+  // 인터페이스에 private 혹 protected 속성 지금 x
+  // 인터페이스에는 항상 public한 요소만 기술
+  // private한 요소는 그냥 클래스에만 등장해서 사용하면 됨
+
+  constructor(tagName, className: string) {
+    this.tagName = tagName;
+    this.className = className;
+  } 
+
+  getTagName = () => this.tagName;
+  getClassName = () => this.className;
+}
+
+console.log('done');
