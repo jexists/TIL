@@ -52,7 +52,7 @@ console.log(sourceObject.traits.first_name.source_id); // 500
 
 // 복사하는 유틸리티 함수
 function deepCopyObject(obj) {
-  const clone = {}; // x8
+  const clone = {}; // x8 
   for (const key in obj) {
     if (typeof obj[key] == "object" && obj[key] != null) { // x18
       // 재귀호출
@@ -72,3 +72,40 @@ console.log(sourceObject.traits.first_name.source_id); // 500
 newObject4.traits.first_name.source_id = 1000; // 깊은 복사 (함수)
 
 console.log(sourceObject.traits.first_name.source_id); // 500
+
+const store = {
+  user: null,
+  cart: [],
+  config: {
+    multiDevice: false,
+    lastLoginDate: 'Wed Jun 09 2021 20:46:55 GMY+0900',
+  }
+}
+
+// object를 새롭게 병합하면서 만들수 있음
+const newObject5 = {
+  ...deepCopyObject(store),
+  config: {
+    ...store.config,
+    lastLoginDate: new Date(),
+  },
+};
+
+console.log(newObject5);
+
+const DefaultSyle = {
+  color: '#fff',
+  fontColor: '#999',
+  fontSize: 14,
+  fontWeight: 200,
+};
+
+// 디폴트 값을 설정하는 테크닉
+// 디폴트를 적고 사용자가 준 옵션 덮어쓰기
+function createParagraph(config) {
+  config = { ...DefaultSyle, ...config };
+
+  console.log(config);
+}
+
+createParagraph({ fontSize: 12 });
