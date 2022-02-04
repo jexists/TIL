@@ -1,6 +1,6 @@
-function addTS(a, b) {
+function addJS(a, b) {
     return a + b;
 }
-var resultTS = addTS(2, 5); // 7
-// const resultTS = addTS('2', '5'); // Type ERROR
+var resultJS = addJS(2, 5); // 7
+const resultJS = addJS('2', '5');
 console.log(resultTS);
