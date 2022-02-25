@@ -1,0 +1,322 @@
+# CLI 명령어
+
+[](https://www.git-scm.com/](https://www.git-scm.com/))
+
+### Interface
+
+프로토콜
+
+GUI - Graphic User Interface
+
+마우스 등이 필요한 그래픽 유저 인터페이스
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cff51b23-0017-489a-9685-83b5f94663c6/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cff51b23-0017-489a-9685-83b5f94663c6/Untitled.png)
+
+CLI - Command Line Interface
+
+키보드 만으로 컴퓨터에게 입/출력을 받는 방법
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5923530e-af09-473c-8923-02040e0866e7/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5923530e-af09-473c-8923-02040e0866e7/Untitled.png)
+
+windows의 도스, 콘솔 cmd, mac의 터미널(Terminal), unix/linux의 bash
+
+도스창(DOS: disk operating system) - 디스크에 읽고 쓰기 등의 명령을 수행하는 프로그램, 명령어를 직접 치는 명령 줄 기반
+
+콘솔(console) - 터미널의 일종. 시스템 제어 등을 위한 특수 목적의 터미널
+
+명령 프롬프트(cmd: command prompt) - CLI 환경에서 여러 명령어를 입력하는 유틸리티
+
+터미널(terminal) - 시스템에 접속하여 입출력을 가능하게 하는 단말 장치
+
+쉘(shell) - CLI 명령을 해석하는 소프트웨어.
+
+## 기본 터미널 명령어
+
+rm = remove (파일/디렉토리 삭제)
+
+강제성 지우기 (사용X)
+
+ $rm –rf
+
+**rm**
+
+= 파일 또는 디렉토리를 지울때
+
+**rm ***
+
+= 다 지우기 (복구불가 / shift+delet)
+
+**whoami** = 컴퓨터이름/영어로 나와야함 (한국어나오면 포맷)
+
+= 사용중인 운영체제에 로그인한 사용자 정보 출력
+
+**pwd** = print working directory / 현재 디렉토리 출력 / 현재 위치 파악
+
+**clear** = 화면 정리 / 실행했던 명령어 출력 삭제
+
+**history** = 사용기록보기 / 지금까지 입력한 히스토리	**!숫자** = 해당하는 숫자의 명령 재동작	전 명령어 쓰고 싶을때 키보드 방향키 (위/아래)
+
+**start .** = bash에서 탐색기 열기 / 현재 디렉토리 실행 (현재 폴더 열기) / (Mac : open.)
+
+**ls** = list 디렉토리 목록 조회 / 현재 작성하고 있는 목록(폴더/파일)
+
+**ls -a** = 숨겨진 파일까지 포함한 목록
+
+**ll** = 속성보완 / 권한 설정 포함한 목록 (권한설정: drwxr-xr-x)
+
+파일 목록 보기 - list 현재 위치 파일 목록 확인
+
+$ ls
+
+파일 사용권한, 소유자, 그룹, 크기 날짜 등 상세한 정보 출력
+
+ls-l
+
+현재 디렉토리 하위 파일 목록 확인
+
+ls 폴더이름/
+
+디렉토리 변경 - change directorty
+
+$ cd
+
+빈 파일 생성 (공백으로 구분하여 여러 파일 생성가능)
+
+$ touch 파일명
+
+빈 폴더 생성 - make directorty (공백으로 구분하여 여러 폴더 생성가능)
+
+$ mkdir 폴더명
+
+**&&**
+
+= enter 기능
+
+**ctrl+c**
+
+= 끝내다
+
+**ctrl+insert**
+
+= 복사
+
+**shift+insert**
+
+= 붙여넣기
+
+---
+
+. current directory
+.. parent directory (상위폴더)
+~ home directory
+/ directroy 폴더 경로 / path 쓸때 / 를 사용해 디렉토리 구분
+
+../.. 상위에 상위 폴더 슬래쉬 구분
+
+* all
+
+**cd** = change directory 디렉토리 변경 / 위치이동 / 경로 이동
+
+cd ..  "상위폴더로 이동 (cd ../ - /생략)"
+
+cd ./폴더명 "현재위치에서 폴더명으로 이동 (./생략가능)"
+	cd name "name 폴더로 이동"
+
+cd /  "최상위 폴더 이동"
+
+cd - "되돌아가기 = ctrl+z / 최근에 사용한 디렉토리 이동" 
+
+cd ~ "사용자/user 폴더로 이동 / 운영체제의 사용자 디렉토리"
+
+mkdir = make directory 새폴더 생성 / 다중폴더&한글폴더 생성 / 폴더안에폴더 생성가능 / 띄어쓰기X->한개의파일안나옴 ('' "를 사용하여 감싸면 가능) / 하위 디렉토리를 생성할 경우 옵션 -p(앞/뒤 가능)
+
+```json
+&& enter 기능
+
+1.	mkdir one    
+	mkdir one/one one/two
+
+2.	mkdir one
+	cd one
+	mkdir one two
+
+3.	mkdir one && cd one && mkdir one two
+
+4.	mkdir one/one two three -p
+```
+
+**mv**
+
+= move 파일/디렉토리 이동 / 이름변경할때도 사용
+
+**mv 파일이름.확장자명 경로/**
+
+= 경로로 파일 이동
+
+**mv 파일이름.확장자명 /바꿀파일이름.확장자명**
+
+= 이름변경
+
+**cp**
+
+= 파일 및 디렉토리 복사 (복사 및 붙여넣기 사용시 이름 변경 가능)
+
+**cp 파일이름.확장자명 복사할이름.확장자명**
+
+**touch**
+
+= 빈파일 생성 / 필요한 문서 생성(md, html, css, js, ai 등 생산가능 / 호환?)
+
+**touch 파일이름.확장자명**
+
+**cat 파일이름** = 파일 내용 보기 / 문서 내용 파악 /문서에서 작성한 내용보기
+
+**echo**
+
+= 문서 내부에 추가내용 삽입
+
+**echo "추가내용입력" >> 파일명.확장자명**
+
+= 기존내용에서 추가 내용 삽입
+
+**echo "추가내용입력" > 파일명.확장자명**
+
+= 기존내용 삭제 후 내용 입력
+
+---
+
+**--version** = 설치된 프로그램 버젼	
+
+node --version = nodejs 버젼	
+
+npm --version =npm 버젼
+
+**npm list**
+-empty = 플러그인 설치해야한다.
+
+[browser-sync: https://www.browsersync.io/](https://www.browsersync.io/)
+
+**npm install --global browser-sync**
+
+> npm 프로그램 
+install 설치 
+--global C드라이브
+browser-sync 어플
+=npm 프로그램의 browser-sync 어플을 C드라이브에 설치할것이다. 
+(MAC: sudo npm install --global browser-sync)
+> 
+
+**browser-sync start --server --files** `"**/*.*"`
+
+```
+browser-sync start --server --files "**/*.*"
+
+browser-sync start --server --files "**/*.jpg" = jpg파일만 불러오겠다.
+```
+
+---
+
+**ctrl + c** = 서버 종료
+
+> start --server 서버 실행
+**/*.*폴더 안에있는 모든 파일
+폴더 ** 파일 **.* 전체파일 (전체파일이름.전체확장자)
+> 
+
+**vi** 글 수정 편집기(에티터) 나옴
+
+vi 파일이름
+
+i 글씨 쓰기 가능
+
+esc 종료
+
+> ! 저장안함 
+q 나가기
+w 저장
+> 
+
+:wq
+
+:q
+
+:!q 저장안하고 나가기
+
+HJKL 왼 아래 위 오른 방향키
+
+---
+
+start (window)
+
+open (mac)
+
+mkdir -p css/base js/src (폴더안에 폴더만들기)
+
+### 기본 폴더 만들기
+
+$ mkdir css/base css/src img ie font js/base js/src html media -p
+
+$ touch index.html html/content.html
+
+$ cp ../e_example/js/b
+
+.index.html (처음인식하는 파일: 밖에 있어야한다. 처음에 있는 파일)
+
+> ./ 현재
+../상위위치
+/ 최상
+> 
+
+ls 한후 cd 글씨쓰고 tab 누르면 글씨 나옴
+
+mkdir dist public www
+
+---
+
+npm init
+
+npm install
+
+yarn run
+
+unix (mac os, linux, window)
+
+- bourne shell
+- fish
+- bash
+- zsh
+
+window (cygwin) → WSL (windows subsystem for Linux): 윈도우에서 유닉스 사용가(10이상)
+
+window
+
+- powershell (객체): aliases 제공
+- cmd.exe
+
+15가지 shell commends
+
+man: manual 
+
+설명, 옵션 (get-help) 
+
+ex) man man 
+
+나가기 q
+
+clear
+
+→ 윈도우 창 청소 
+
+### navigating file system 파일 시스템 탐색하기
+
+pwd: print working directory
+
+→ 내가 어떤 경로에 있는지
+
+→ 현재 있는 전체 경로
+
+→ get-location
+
+ls: list
+
+현재 경로 안에 있는 폴더나 파일
