@@ -28,7 +28,7 @@ export function list3() {
   return priceOfTomato() * 100;
 }
 
-function getPrice(name: string) {
+export function getPrice(name: string): number | undefined {
   if (name === 'tomato') {
     return 7000;
   } else if (name === 'orange') {
@@ -52,6 +52,26 @@ const isEven = {
 
 const isEvenFn = (str: string) => str.length % 2 === 0;
 
+
 export function getTotalPrice() {
   return list1();
+}
+
+export const isExpensive = (price: number | undefined) => {
+  if (price === undefined) {
+    return false;
+  }
+  return price > 10000;
+}
+
+export function isExpensivePrice(name: string): boolean {
+  return isExpensive(getPrice(name))
+}
+
+
+
+export const main = () => {
+  // const price = getPrice('tomato');
+  // return isExpensive(price);
+  return isExpensive(getPrice('tomato'));
 }
