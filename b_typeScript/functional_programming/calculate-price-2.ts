@@ -69,6 +69,18 @@ export function isExpensivePrice(name: string): boolean {
 }
 
 
+// generic을 사용해서 함수 합성
+
+// export const compose = (isExpensive, getPrice) => (name) => {}
+// export const compose = (g, f) => (x: string) => {}
+// export const compose = (g: (y:number | undefined) => boolean, f:(s:string) => number | undefined) => (x: string) => {
+//   return g(f(x));
+// }
+export const compose = <A, B, C>(g: (y: B) => C, f: (s: A) => B) => (x: A) => {
+  return g(f(x));
+}
+// <A, B, C>((B) => C,(A) => B) => (A) => C
+
 
 export const main = () => {
   // const price = getPrice('tomato');
