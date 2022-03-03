@@ -1,4 +1,4 @@
-
+const cart = [];
 // 관심사 별로 코드 나누기
 // -> 코드 중복
 const list1 = () => {
@@ -42,9 +42,9 @@ const list1 = () => {
 }
 
 const app1 = document.getElementById("app");
-if (app != null) {
-  app.innerHTML = `
+if (app1 != null) {
+  app1.innerHTML = `
     <h1>장바구니</h1>
-    ${list()}
+    ${list1()}
   `;
 }
