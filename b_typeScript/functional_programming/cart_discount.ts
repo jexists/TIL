@@ -1,4 +1,5 @@
 import { cart, Item } from "./cart_model";
+import * as O from "./cart_option";
 
 const stockItem = (item: Item): string => {
   // return `<li>
@@ -8,12 +9,20 @@ const stockItem = (item: Item): string => {
   // </li>`
   // <div>가격: ${item.price - item.discountPrice} ${saleText}</div>
   // -> error (optional이라서 undefined가 나올수 있음: NaN)
+
   let saleText = '';
-  let discountPrice = 0;
-  if (item.discountPrice !== undefined) {
-    saleText = `(${item.discountPrice}원 할인)`
-    discountPrice = item.discountPrice;
+  // let discountPrice = 0;
+  // if (item.discountPrice !== undefined) {
+  //   saleText = `(${item.discountPrice}원 할인)`
+  //   discountPrice = item.discountPrice;
+  // }
+
+  const optionDiscountPrice = O.fromUndefined(item.discountPrice);
+  const discountPrice = O.getOrElse(optionDiscountPrice, 0)
+  if (O.isSome(optionDiscountPrice)) {
+    saleText = `(${discountPrice}원 할인)`
   }
+
   return `<li>
     <h2>${item.name}</h2>
     <div>가격: ${item.price - discountPrice} ${saleText}</div>
@@ -55,11 +64,16 @@ const totalCount = (list: Array<Item>): string => {
 const totalPrice = (list: Array<Item>): string => {
   const totalPrice = totalCalculator(list, (item) => item.price);
 
+  // const totalDiscountPrice = totalCalculator(list, (item) => {
+  //   let discountPrice = 0;
+  //   if (item.discountPrice !== undefined) {
+  //     discountPrice = item.discountPrice
+  //   }
+  //   return discountPrice * item.quantity;
+  // })
   const totalDiscountPrice = totalCalculator(list, (item) => {
-    let discountPrice = 0;
-    if (item.discountPrice !== undefined) {
-      discountPrice = item.discountPrice
-    }
+    // item.discountPrice |> O.fromUndefined($) |> O.getOrElse($, 0);
+    const discountPrice = O.getOrElse(O.fromUndefined(item.discountPrice), 0)
     return discountPrice * item.quantity;
   })
   return `<h2>전체가격: ${totalPrice - totalDiscountPrice}원 (총xx원 할인)</h2>`
