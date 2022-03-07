@@ -10,7 +10,6 @@ const stockItem = (item: Item): string => {
   // <div>가격: ${item.price - item.discountPrice} ${saleText}</div>
   // -> error (optional이라서 undefined가 나올수 있음: NaN)
 
-  let saleText = '';
   // let discountPrice = 0;
   // if (item.discountPrice !== undefined) {
   //   saleText = `(${item.discountPrice}원 할인)`
@@ -19,9 +18,27 @@ const stockItem = (item: Item): string => {
 
   const optionDiscountPrice = O.fromUndefined(item.discountPrice);
   const discountPrice = O.getOrElse(optionDiscountPrice, 0)
-  if (O.isSome(optionDiscountPrice)) {
-    saleText = `(${discountPrice}원 할인)`
-  }
+
+  // const optionSaleText = O.map(
+  //   optionDiscountPrice, 
+  //   (discountPrice) => `${discountPrice}원 할인`,
+  // )
+  // const saleText = O.getOrElse(optionSaleText, "");
+
+  // const saleText = O.getOrElse(O.map(
+  //   optionDiscountPrice,
+  //   (discountPrice) => `${discountPrice}원 할인`,
+  // ), "")
+
+  const saleText = O.mapOrElse(
+    optionDiscountPrice,
+    (discountPrice) => `${discountPrice}원 할인`,
+    "")
+
+  // let saleText = '';
+  // if (O.isSome(optionDiscountPrice)) {
+  //   saleText = `(${discountPrice}원 할인)`
+  // }
 
   return `<li>
     <h2>${item.name}</h2>
