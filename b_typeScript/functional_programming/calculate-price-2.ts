@@ -68,6 +68,8 @@ export function isExpensivePrice(name: string): boolean {
   return isExpensive(getPrice(name))
 }
 
+// // isExpensive & getPrice합성 하나의 함수로
+// export const isExpensivePrice = compose(isExpensive, getPrice)
 
 // generic을 사용해서 함수 합성
 
