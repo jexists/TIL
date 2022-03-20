@@ -26,7 +26,6 @@ func (f *fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	user := new(User)
 	err := json.NewDecoder(r.Body).Decode(user)
 	if err != nil {
-		w.Header().Add("content-type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprint(w, err)
 		return
@@ -35,6 +34,7 @@ func (f *fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	user.CreateAt = time.Now()
 	//json 형태로 변경
 	data, _ := json.Marshal(user)
+	w.Header().Add("content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(data))
 
