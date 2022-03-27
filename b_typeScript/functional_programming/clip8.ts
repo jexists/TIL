@@ -81,12 +81,12 @@ const totalPrice = (list: ArrayItem): string => {
 //   `
 // }
 
-const app1 = document.getElementById("app");
-if (app1 != null) {
-  app1.innerHTML = `
-    <h1>장바구니</h1>
-    // ${list1(cart)}
-    // ${totalCount(cart)}
-    // ${totalPrice(cart)}
-  `;
-}
+// const app1 = document.getElementById("app");
+// if (app1 != null) {
+//   app1.innerHTML = `
+//     <h1>장바구니</h1>
+//     ${list1(cart)}
+//     ${totalCount(cart)}
+//     ${totalPrice(cart)}
+//   `;
+// }
