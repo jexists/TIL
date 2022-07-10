@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { BuckitList } from '../../core/buckitlist';
 import { BuckitListService } from '../../core/bucklist.service';
@@ -8,7 +8,7 @@ import { BuckitListService } from '../../core/bucklist.service';
   templateUrl: './buckitlists.component.html',
   styleUrls: ['./buckitlists.component.scss']
 })
-export class BuckitListsComponent implements OnInit {
+export class BuckitListsComponent implements OnInit, OnDestroy {
 
   buckitLists: BuckitList[];
 
@@ -21,13 +21,16 @@ export class BuckitListsComponent implements OnInit {
     this.getNavBg();
   }
 
+  ngOnDestroy(): void {
+  }
+
   getNavBg(): void {
     document.querySelector('.nav-buckit').classList.add('act');
     document.querySelector('.nav-home').classList.remove('act');
   }
   getBuckitLists(): void {
     this.buckitListService.getBuckitLists()
-        .subscribe(buckitLists => this.buckitLists = buckitLists);
+      .subscribe(buckitLists => this.buckitLists = buckitLists);
   }
 
   add(name: string): void {

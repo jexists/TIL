@@ -7,14 +7,34 @@ import { DashboardComponent } from './layout/dashboard/dashboard.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'detail/:id', component: BuckitListDetailComponent},
-  {path: 'buckitlists', component: BuckitListsComponent},
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
+    path: 'detail/:id',
+    component: BuckitListDetailComponent
+  },
+  {
+    path: 'buckitlists',
+    component: BuckitListsComponent,
+    data: { reuse: true }
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+      relativeLinkResolution: 'corrected',
+      // anchorScrolling: 'disabled',
+      // onSameUrlNavigation: 'reload'
+    }),],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

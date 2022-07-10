@@ -9,16 +9,26 @@ import { Injectable } from '@angular/core';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const buckitLists = [
-      { id: 11, name: '세계여행하기' },
-      { id: 12, name: '국내여행 완전정보' },
-      { id: 13, name: '유튜브 내 채널 개설하기' },
-      { id: 14, name: '내 집 마련' },
-      { id: 15, name: '창업해보기' },
-      { id: 16, name: '내가 기획한 어플 제작하기' },
-      { id: 17, name: '성경 필사하기' },
-      { id: 18, name: '명함 100개 다른사람과 교환하기' },
-      { id: 19, name: '좋아하는 연예인과 사진찍기' },
-      { id: 20, name: '악기 한개 마스터하기' }
+      { id: 11, name: '121212121' },
+      { id: 12, name: '232323232' },
+      { id: 13, name: '454545454' },
+      { id: 14, name: '565656565' },
+      { id: 15, name: '787878787' },
+      { id: 16, name: '909090909' },
+      { id: 17, name: '101010101' },
+      { id: 18, name: '434343424' },
+      { id: 19, name: '534523452' },
+      { id: 20, name: '634343432' },
+      { id: 21, name: '111111' },
+      { id: 22, name: '222222' },
+      { id: 23, name: '333333' },
+      { id: 24, name: '444444' },
+      { id: 25, name: '555555' },
+      { id: 26, name: '666666' },
+      { id: 27, name: '777777' },
+      { id: 28, name: '888888' },
+      { id: 29, name: '999999' },
+      { id: 30, name: '000000' },
     ];
     return { buckitLists };
   }
